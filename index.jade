@@ -1,0 +1,36 @@
+doctype html
+html(lang="ru")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+        meta(name="format-detection" content="telephone=no")
+        title Дагестанский заповедник
+        ='\n'
+        <!--build:css css/style.min.css -->
+        link(rel="stylesheet" href="css/style.css")
+        ='\n'
+        <!-- endbuild -->
+        link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:900,500,300,700,400")
+    body
+        .container
+            .j-tabs
+                .j-tab-nav
+                    .j-tab-button.
+                        First
+                    .j-tab-button.
+                        Second
+                    .j-tab-button.
+                        Third
+                    .j-tab-button.
+                        Fourth
+                .j-tab-content
+                    .j-tab-elem 1
+                    .j-tab-elem 2
+                    .j-tab-elem 3
+                    .j-tab-elem 4
+        ='\n'
+        <!--build:js js/script.min.js -->
+        script(src="js/jquery.min.js")
+        script(src="js/main.js")
+        ='\n'
+        <!-- endbuild -->

@@ -1,0 +1,69 @@
+@import "normalize";
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "general";
+@import "forms";
+
+body{
+	font-family: "Roboto",sans-serif;
+	font-size: 16px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+$tab-background:#fff;
+$tab-text-color: #333;
+$tab-font-family: "Open Sans",sans-serif;
+
+.j-tab{
+    background:$tab-background;
+    color:$tab-text-color;
+    font-family: $tab-font-family;
+
+    padding:10px;
+    overflow: hidden;
+    position: relative;
+
+    &-nav{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &-button{
+        padding:20px;
+        background:#eee;
+        border-top:1px solid #333;
+    }
+
+    &-content{
+        padding:10px 0px;
+    }
+    
+    &-elem{
+        opacity:0;
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transition:opacity 1s ease;
+
+        &--active{
+            opacity:1;
+            height: auto;
+            overflow:auto;
+            visibility:visible;
+        }
+    }
+
+}
+
+.container{
+    width: 960px;
+    margin:0 auto;
+}
+
+@import "media";
