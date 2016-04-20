@@ -1,7 +1,7 @@
 (function($){
   $.fn.tab = function(options){
   
-    var settings = $.extend({
+    var settings = $.extend(true,{
           // These are the defaults.
           tabNav: ".j-tab-nav",
           tabButton: ".j-tab-button",
@@ -12,7 +12,9 @@
           defaultTab: 0,
           changeTab: this.changeTab,
           events:{
-            onChangeTab: function(){}
+            onChangeTab: function(){},
+            afterChangeTab: function(){},
+            beforeChangeTab: function(){}
           }
     }, options );
 
@@ -28,31 +30,31 @@
     }
 
     plugin.changeTab = function(n){
+      settings.events.beforeChangeTab.call();
+
       var tabButton = $(settings.tabButton).eq(n);
       var tabElem = $(settings.tabElem).eq(n);
       plugin.clearActiveElements();
             plugin.addActiveElement(tabButton,settings.tabButtonActive);
       plugin.addActiveElement(tabElem,settings.tabElemActive);
+
+      settings.events.afterChangeTab.call();
     }
     
-    plugin.changeTab(settings.defaultTab);
-
-    // Set onChangeTab event
     $(settings.tabButton).bind('click',function(){
-       settings.events.onChangeTab.call();
-    });
-
-    $(settings.tabButton).bind('click',function(){
+      settings.events.onChangeTab.call();
       currentIndex = $(this).index();
       plugin.changeTab(currentIndex);
     });
-
-    
     
     return this;
-    
    }
 }(jQuery));
 
 var tabs = $('.j-tab').tab({
+  events: {
+    beforeChangeTab: function(){console.log('Before changing the tab');},
+    afterChangeTab: function(){console.log('After changing the tab');},
+    onChangeTab: function(){console.log('On changing the tab');}
+  }
 });

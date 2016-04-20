@@ -358,16 +358,23 @@ th {
 
 body {
   font-family: "Roboto",sans-serif;
-  font-size: 16px; }
+  font-size: 16px;
+  transition: background 1s ease;
+  transition-delay: 0.4s; }
+
+body.is-active {
+  transition-delay: 0.8s; }
 
 * {
   box-sizing: border-box; }
 
 .j-tab {
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
   background: #fff;
   color: #333;
   font-family: "Open Sans", sans-serif;
-  padding: 10px;
   overflow: hidden;
   position: relative; }
   .j-tab-nav {
@@ -378,7 +385,12 @@ body {
   .j-tab-button {
     padding: 20px;
     background: #eee;
-    border-top: 1px solid #333; }
+    border-top: 1px solid #333;
+    color: #000;
+    transition: background 0.4s ease; }
+    .j-tab-button:hover {
+      cursor: pointer;
+      background: #a2a2a2; }
   .j-tab-content {
     padding: 10px 0px; }
   .j-tab-elem {
@@ -386,7 +398,7 @@ body {
     height: 0;
     visibility: hidden;
     overflow: hidden;
-    transition: opacity 1s ease; }
+    transition: all 1s ease; }
     .j-tab-elem--active {
       opacity: 1;
       height: auto;

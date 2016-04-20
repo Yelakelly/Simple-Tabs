@@ -8,6 +8,12 @@
 body{
 	font-family: "Roboto",sans-serif;
 	font-size: 16px;
+    transition:background 1s ease;
+    transition-delay: 0.4s;
+}
+
+body.is-active{
+    transition-delay: 0.8s;
 }
 
 *{
@@ -18,12 +24,20 @@ $tab-background:#fff;
 $tab-text-color: #333;
 $tab-font-family: "Open Sans",sans-serif;
 
+$tab-button-background:#eee;
+$tab-button-color:#000;
+
+
 .j-tab{
+    width: 50%;
+    margin:0 auto;
+    padding:10px;
+
     background:$tab-background;
     color:$tab-text-color;
     font-family: $tab-font-family;
 
-    padding:10px;
+
     overflow: hidden;
     position: relative;
 
@@ -36,8 +50,16 @@ $tab-font-family: "Open Sans",sans-serif;
 
     &-button{
         padding:20px;
-        background:#eee;
+
+        background:$tab-button-background;
         border-top:1px solid #333;
+        color:$tab-button-color;
+        transition:background 0.4s ease;
+
+        &:hover{
+            cursor:pointer;
+            background:darken($tab-button-background,30);
+        }
     }
 
     &-content{
@@ -49,8 +71,7 @@ $tab-font-family: "Open Sans",sans-serif;
         height: 0;
         visibility: hidden;
         overflow: hidden;
-        transition:opacity 1s ease;
-
+        transition:all 1s ease;
         &--active{
             opacity:1;
             height: auto;
