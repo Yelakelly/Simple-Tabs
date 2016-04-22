@@ -23,7 +23,7 @@
 
 ### jQuery
 
-```jQuery
+```javascript
 var tabs = $('.j-tab').tab({
     tabNav: ".j-tab-nav",
     tabButton: ".j-tab-button",
