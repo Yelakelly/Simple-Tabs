@@ -9,7 +9,6 @@
           tabElem: ".j-tab-elem",
           tabElemActive: "j-tab-elem--active",
           tabButtonActive: "tab-button--active",
-          defaultTab: 0,
           changeTab: this.changeTab,
           events:{
             onChangeTab: function(){},
@@ -58,3 +57,5 @@ var tabs = $('.j-tab').tab({
     onChangeTab: function(){console.log('On changing the tab');}
   }
 });
+
+tabs.changeTab(2);

@@ -21,9 +21,9 @@
         </div>
 ```
 
-### Code
+### jQuery
 
-```javascript
+```jQuery
 var tabs = $('.j-tab').tab({
     tabNav: ".j-tab-nav",
     tabButton: ".j-tab-button",
@@ -31,7 +31,6 @@ var tabs = $('.j-tab').tab({
     tabElem: ".j-tab-elem",
     tabElemActive: "j-tab-elem--active",
     tabButtonActive: "tab-button--active",
-    defaultTab: 0,
     changeTab: this.changeTab,
     events: {
         beforeChangeTab: function(){console.log('Before changing the tab');},
