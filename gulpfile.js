@@ -6,11 +6,10 @@ var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var minifyCSS = require('gulp-minify-css');
-var imagemin = require('gulp-imagemin');
-var cache = require('gulp-cache');
 var spritesmith = require('gulp.spritesmith');
-
-
+var sourcemaps = require('gulp-sourcemaps');
+var plumber = require('gulp-plumber');
+var notify = require("gulp-notify");
 
 gulp.task('copyfonts', function() {
    gulp.src('./fonts/**/*')
@@ -34,18 +33,7 @@ gulp.task('sprite', function () {
   return spriteData.pipe(gulp.dest('img/sprite/'));
 });
 
-gulp.task('images', function(){
-  return gulp.src('./img/**/*.+(png|jpg|gif|svg)')
-   .pipe(cache(imagemin({
-      interlaced: true
-    })))
-  .pipe(gulp.dest('dist/img'))
-});
-
-
-
-
-gulp.task('watch', ['sass'], function(gulpCallback) {
+gulp.task('watch', ['sass','jade'], function(gulpCallback) {
   browserSync.init({
     // serve out of app/
     server: './',
@@ -55,17 +43,17 @@ gulp.task('watch', ['sass'], function(gulpCallback) {
   }, function callback() {
     // (server is now up)
 
-    gulp.watch(["*.jade","./jade/**/*.jade"], ['jade']);
+    gulp.watch(["./**/*.jade"], ['jade']);
 
     // watch html and reload browsers when it changes
-    gulp.watch('index.html', browserSync.reload);
+    gulp.watch('./*.html', browserSync.reload);
 
     // when sass files change run specified gulp task
     gulp.watch('./sass/**/*.scss', ['sass']);
 
-    gulp.watch("./js/*.js", browserSync.reload);
+    gulp.watch("./js/**/*.js", browserSync.reload);
 
-    gulp.watch("./img/*.*", browserSync.reload);
+    gulp.watch("./img/**/*.*", browserSync.reload);
 
     // notify gulp that this task is done
     gulpCallback();
@@ -74,8 +62,16 @@ gulp.task('watch', ['sass'], function(gulpCallback) {
 
 
 gulp.task('jade', function() {
-  gulp.src('./*.jade')
-  	.on('error', function(err){ console.log(err.message); })
+  gulp.src('./**/*.jade')
+    .pipe(plumber(function(error){
+        notify.onError({
+            title:    "Sass - error",
+            subtitle: "You prat! What've you done now?!",
+            message:  "Error: " + error.message,
+            sound:    "Beep"
+          })(error);
+        this.emit('end');
+    }))
     .pipe(jade({
       pretty:true
     }))
@@ -84,7 +80,19 @@ gulp.task('jade', function() {
 
 gulp.task('sass', function() {
   return gulp.src('./sass/**/*.scss*')
+    .pipe(plumber(function(error){
+        notify.onError({
+            title:    "Sass - error",
+            subtitle: "You prat! What've you done now?!",
+            message:  "Error: " + error.message,
+            sound:    "Beep"
+          })(error);
+        this.emit('end');
+    }))
+    .pipe(sourcemaps.init())
     .pipe(sass())
+    .pipe(sourcemaps.write())
+    .pipe(plumber.stop())
     .pipe(gulp.dest('css/'))
     // if BrowserSync's static server isn't running this stream is a no-op passthrough
     .pipe(browserSync.stream());
